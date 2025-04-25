@@ -34,16 +34,17 @@ export class Board {
       this.fallingBlockPosition = null;
       return;
     }
-    const board = [...this.board];
-    for (let i = this.height - 1; i >= 0; i--) {
-      for (let j = 0; j < this.width; j++) {
-        if (board[i][j] === this.fallingBlock) {
-          board[i][j] = ".";
-          board[i + 1][j] = this.fallingBlock;
-        }
-      }
+    const { row, column } = this.fallingBlockPosition;
+
+    if (row + 1 < this.height && this.board[row + 1][column] === ".") {
+      this.board[row][column] = ".";
+      this.fallingBlockPosition.row += 1;
+      this.board[this.fallingBlockPosition.row][column] = this.fallingBlock;
+    } else {
+      this.isFalling = false;
+      this.fallingBlock = null;
+      this.fallingBlockPosition = null;
     }
-    this.board = board;
   }
 
   toString() {
