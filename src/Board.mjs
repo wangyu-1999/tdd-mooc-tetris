@@ -13,6 +13,10 @@ export class Board {
     this.board[0][middle] = block;
   }
 
+  tick() {
+    this.board = [new Array(this.width).fill("."), ...this.board.slice(0, this.height - 1)];
+  }
+
   toString() {
     return this.board.map((r) => r.join("")).join("\n") + "\n";
   }
