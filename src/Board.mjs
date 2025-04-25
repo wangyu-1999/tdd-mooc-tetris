@@ -5,7 +5,12 @@ export class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.board = new Array(height).fill(new Array(width).fill("."));
+    this.board = Array.from({ length: height }, () => Array(width).fill("."));
+  }
+
+  drop(block) {
+    const middle = Math.floor(this.width / 2);
+    this.board[0][middle] = block;
   }
 
   toString() {
