@@ -31,7 +31,16 @@ export class Board {
       this.fallingBlock = null;
       return;
     }
-    this.board = [new Array(this.width).fill("."), ...this.board.slice(0, this.height - 1)];
+    const board = [...this.board];
+    for (let i = this.height - 1; i >= 0; i--) {
+      for (let j = 0; j < this.width; j++) {
+        if (board[i][j] === this.fallingBlock) {
+          board[i][j] = ".";
+          board[i + 1][j] = this.fallingBlock;
+        }
+      }
+    }
+    this.board = board;
   }
 
   toString() {
