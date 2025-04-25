@@ -3,6 +3,7 @@ export class Board {
   height;
   isFalling;
   fallingBlock;
+  fallingBlockPosition;
 
   constructor(width, height) {
     this.width = width;
@@ -18,6 +19,7 @@ export class Board {
     }
     this.isFalling = true;
     this.fallingBlock = block;
+    this.fallingBlockPosition = { column: middle, row: 0 };
     this.board[0][middle] = block;
   }
 
@@ -29,6 +31,7 @@ export class Board {
     if (this.board[this.height - 1].includes(this.fallingBlock)) {
       this.isFalling = false;
       this.fallingBlock = null;
+      this.fallingBlockPosition = null;
       return;
     }
     const board = [...this.board];
