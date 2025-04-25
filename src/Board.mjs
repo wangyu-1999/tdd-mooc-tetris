@@ -2,6 +2,7 @@ export class Board {
   width;
   height;
   isFalling;
+  fallingBlock;
 
   constructor(width, height) {
     this.width = width;
@@ -16,7 +17,12 @@ export class Board {
       throw new Error("already falling");
     }
     this.isFalling = true;
+    this.fallingBlock = block;
     this.board[0][middle] = block;
+  }
+
+  hasFalling() {
+    return this.isFalling;
   }
 
   tick() {
