@@ -26,6 +26,11 @@ export class Board {
   }
 
   tick() {
+    if (this.board[this.height - 1].includes(this.fallingBlock)) {
+      this.isFalling = false;
+      this.fallingBlock = null;
+      return;
+    }
     this.board = [new Array(this.width).fill("."), ...this.board.slice(0, this.height - 1)];
   }
 
