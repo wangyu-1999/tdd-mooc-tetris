@@ -28,13 +28,14 @@ export class Board {
   }
 
   tick() {
-    if (this.board[this.height - 1].includes(this.fallingBlock)) {
+    const { row, column } = this.fallingBlockPosition;
+
+    if (row === this.height - 1) {
       this.isFalling = false;
       this.fallingBlock = null;
       this.fallingBlockPosition = null;
       return;
     }
-    const { row, column } = this.fallingBlockPosition;
 
     if (row + 1 < this.height && this.board[row + 1][column] === ".") {
       this.board[row][column] = ".";
