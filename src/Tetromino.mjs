@@ -22,6 +22,14 @@ export class Tetromino {
     ],
     2
   );
+  static O_SHAPE = new Tetromino(
+    [
+      [".", "O", "O"],
+      [".", "O", "O"],
+      [".", ".", "."],
+    ],
+    1
+  );
   constructor(shape, numberOfOrientations = 4, isRotated = false) {
     this.shape = new RotatingShape(shape);
     this.numberOfOrientations = numberOfOrientations;
@@ -33,7 +41,7 @@ export class Tetromino {
       case 2:
         if (!this.isRotated) {
           return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
-        }else{
+        } else {
           return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, false);
         }
       default:
@@ -46,7 +54,7 @@ export class Tetromino {
       case 2:
         if (!this.isRotated) {
           return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
-        }else{
+        } else {
           return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, false);
         }
       default:
