@@ -1,7 +1,7 @@
 import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
-  shape;
+  rotatingShapeObj;
   numberOfOrientations;
   isRotated;
   static T_SHAPE = new Tetromino(
@@ -31,7 +31,7 @@ export class Tetromino {
     1
   );
   constructor(shape, numberOfOrientations = 4, isRotated = false) {
-    this.shape = new RotatingShape(shape);
+    this.rotatingShapeObj = new RotatingShape(shape);
     this.numberOfOrientations = numberOfOrientations;
     this.isRotated = isRotated;
   }
@@ -42,12 +42,12 @@ export class Tetromino {
         return this;
       case 2:
         if (!this.isRotated) {
-          return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
+          return new Tetromino(this.rotatingShapeObj.rotateRight().shape, this.numberOfOrientations, true);
         } else {
-          return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, false);
+          return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, false);
         }
       default:
-        return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
+        return new Tetromino(this.rotatingShapeObj.rotateRight().shape, this.numberOfOrientations, true);
     }
   }
 
@@ -57,20 +57,20 @@ export class Tetromino {
         return this;
       case 2:
         if (!this.isRotated) {
-          return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
+          return new Tetromino(this.rotatingShapeObj.rotateRight().shape, this.numberOfOrientations, true);
         } else {
-          return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, false);
+          return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, false);
         }
       default:
-        return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, true);
+        return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, true);
     }
   }
 
   getShape() {
-    return this.shape.shape;
+    return this.rotatingShapeObj.shape;
   }
 
   toString() {
-    return this.shape.toString();
+    return this.rotatingShapeObj.toString();
   }
 }
