@@ -16,6 +16,11 @@ export class Tetromino {
     return this;
   }
 
+  rotateLeft() {
+    this.shape = this.shape.rotateLeft();
+    return this;
+  }
+
   toString() {
     return this.shape.toString();
   }
