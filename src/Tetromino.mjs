@@ -9,6 +9,14 @@ export class Tetromino {
     return this.rotatingShapeObj.shape;
   }
 
+  get width() {
+    return this.shape.length;
+  }
+
+  get height() {
+    return this.shape[0].length;
+  }
+
   static T_SHAPE = new Tetromino(
     [
       [".", "T", "."],
