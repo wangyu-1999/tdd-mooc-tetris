@@ -38,6 +38,8 @@ export class Tetromino {
 
   rotateRight() {
     switch (this.numberOfOrientations) {
+      case 1:
+        return this;
       case 2:
         if (!this.isRotated) {
           return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
@@ -51,6 +53,8 @@ export class Tetromino {
 
   rotateLeft() {
     switch (this.numberOfOrientations) {
+      case 1:
+        return this;
       case 2:
         if (!this.isRotated) {
           return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
