@@ -3,7 +3,7 @@ export class RotatingShape {
   constructor(shape) {
     this.shape = shape;
   }
-  rotate() {
+  rotateRight() {
     const size = this.shape.length;
     const rotatedShape = Array.from({ length: size }, () => Array(size).fill(null));
 
