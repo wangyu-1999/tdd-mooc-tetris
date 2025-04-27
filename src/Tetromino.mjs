@@ -2,20 +2,28 @@ import { RotatingShape } from "./RotatingShape.mjs";
 
 export class Tetromino {
   shape;
-  static T_SHAPE = new Tetromino([
-    [".", "T", "."],
-    ["T", "T", "T"],
-    [".", ".", "."],
-  ]);
-  static I_SHAPE = new Tetromino([
-    [".", ".", ".", ".", "."],
-    [".", ".", ".", ".", "."],
-    ["I", "I", "I", "I", "."],
-    [".", ".", ".", ".", "."],
-    [".", ".", ".", ".", "."],
-  ]);
-  constructor(shape) {
+  numberOfOrientations;
+  static T_SHAPE = new Tetromino(
+    [
+      [".", "T", "."],
+      ["T", "T", "T"],
+      [".", ".", "."],
+    ],
+    4
+  );
+  static I_SHAPE = new Tetromino(
+    [
+      [".", ".", ".", ".", "."],
+      [".", ".", ".", ".", "."],
+      ["I", "I", "I", "I", "."],
+      [".", ".", ".", ".", "."],
+      [".", ".", ".", ".", "."],
+    ],
+    2
+  );
+  constructor(shape, numberOfOrientations = 4) {
     this.shape = new RotatingShape(shape);
+    this.numberOfOrientations = numberOfOrientations;
   }
 
   rotateRight() {
