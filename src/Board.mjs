@@ -3,7 +3,7 @@ export class Board {
   height;
   isFalling;
   fallingBlock;
-  fallingBlockPosition;
+  fallingBlockTopLeftPosition;
 
   constructor(width, height) {
     this.width = width;
@@ -19,7 +19,7 @@ export class Board {
     }
     this.isFalling = true;
     this.fallingBlock = block;
-    this.fallingBlockPosition = { column: middle, row: 0 };
+    this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
     this.board[0][middle] = block;
   }
 
@@ -28,23 +28,23 @@ export class Board {
   }
 
   tick() {
-    const { row, column } = this.fallingBlockPosition;
+    const { row, column } = this.fallingBlockTopLeftPosition;
 
     if (row === this.height - 1) {
       this.isFalling = false;
       this.fallingBlock = null;
-      this.fallingBlockPosition = null;
+      this.fallingBlockTopLeftPosition = null;
       return;
     }
 
     if (row + 1 < this.height && this.board[row + 1][column] === ".") {
       this.board[row][column] = ".";
-      this.fallingBlockPosition.row += 1;
-      this.board[this.fallingBlockPosition.row][column] = this.fallingBlock;
+      this.fallingBlockTopLeftPosition.row += 1;
+      this.board[this.fallingBlockTopLeftPosition.row][column] = this.fallingBlock;
     } else {
       this.isFalling = false;
       this.fallingBlock = null;
-      this.fallingBlockPosition = null;
+      this.fallingBlockTopLeftPosition = null;
     }
   }
 
