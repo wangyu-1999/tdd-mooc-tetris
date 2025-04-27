@@ -3,7 +3,7 @@ import { RotatingShape } from "./RotatingShape.mjs";
 export class Tetromino {
   shape;
   numberOfOrientations;
-  isRotated = false;
+  isRotated;
   static T_SHAPE = new Tetromino(
     [
       [".", "T", "."],
@@ -22,15 +22,16 @@ export class Tetromino {
     ],
     2
   );
-  constructor(shape, numberOfOrientations = 4) {
+  constructor(shape, numberOfOrientations = 4, isRotated = false) {
     this.shape = new RotatingShape(shape);
     this.numberOfOrientations = numberOfOrientations;
+    this.isRotated = isRotated;
   }
 
   rotateRight() {
     switch (this.numberOfOrientations) {
       case 2:
-        if (this.isRotated) {
+        if (!this.isRotated) {
           this.isRotated = true;
           return this.shape.rotateRight();
         }
