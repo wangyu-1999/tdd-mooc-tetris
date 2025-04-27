@@ -66,6 +66,10 @@ export class Tetromino {
     }
   }
 
+  getShape() {
+    return this.shape.shape;
+  }
+
   toString() {
     return this.shape.toString();
   }

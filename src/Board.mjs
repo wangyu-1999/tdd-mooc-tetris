@@ -1,3 +1,5 @@
+import { Tetromino } from "./Tetromino.mjs";
+
 export class Board {
   width;
   height;
@@ -13,14 +15,18 @@ export class Board {
   }
 
   drop(block) {
-    const middle = Math.floor(this.width / 2);
     if (this.isFalling) {
       throw new Error("already falling");
     }
     this.isFalling = true;
-    this.fallingBlock = block;
+    if (typeof block === "string") {
+      this.fallingBlock = new Tetromino([[block]]);
+    } else {
+      this.fallingBlock = block;
+    }
+    const middle = Math.floor(this.width / 2);
     this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
-    this.board[0][middle] = block;
+    this.board[0][middle] = this.fallingBlock.getShape()[0][0];
   }
 
   hasFalling() {
@@ -40,7 +46,7 @@ export class Board {
     if (row + 1 < this.height && this.board[row + 1][column] === ".") {
       this.board[row][column] = ".";
       this.fallingBlockTopLeftPosition.row += 1;
-      this.board[this.fallingBlockTopLeftPosition.row][column] = this.fallingBlock;
+      this.board[this.fallingBlockTopLeftPosition.row][column] = this.fallingBlock.getShape()[0][0];
     } else {
       this.isFalling = false;
       this.fallingBlock = null;
