@@ -32,16 +32,22 @@ export class Tetromino {
     switch (this.numberOfOrientations) {
       case 2:
         if (!this.isRotated) {
-        
           return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
         }
       default:
-        return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, this.isRotated);
+        return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
     }
   }
 
   rotateLeft() {
-    return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, this.isRotated);
+    switch (this.numberOfOrientations) {
+      case 2:
+        if (!this.isRotated) {
+          return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
+        }
+      default:
+        return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, true);
+    }
   }
 
   toString() {
