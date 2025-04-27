@@ -4,6 +4,11 @@ export class Tetromino {
   rotatingShapeObj;
   numberOfOrientations;
   isRotated;
+
+  get shape() {
+    return this.rotatingShapeObj.shape;
+  }
+
   static T_SHAPE = new Tetromino(
     [
       [".", "T", "."],
@@ -65,11 +70,6 @@ export class Tetromino {
         return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, true);
     }
   }
-
-  getShape() {
-    return this.rotatingShapeObj.shape;
-  }
-
   toString() {
     return this.rotatingShapeObj.toString();
   }

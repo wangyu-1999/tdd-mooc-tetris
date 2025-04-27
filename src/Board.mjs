@@ -26,7 +26,7 @@ export class Board {
     }
     const middle = Math.floor(this.width / 2);
     this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
-    this.board[0][middle] = this.fallingBlock.getShape()[0][0];
+    this.board[0][middle] = this.fallingBlock.shape[0][0];
   }
 
   hasFalling() {
@@ -46,7 +46,7 @@ export class Board {
     if (row + 1 < this.height && this.board[row + 1][column] === ".") {
       this.board[row][column] = ".";
       this.fallingBlockTopLeftPosition.row += 1;
-      this.board[this.fallingBlockTopLeftPosition.row][column] = this.fallingBlock.getShape()[0][0];
+      this.board[this.fallingBlockTopLeftPosition.row][column] = this.fallingBlock.shape[0][0];
     } else {
       this.isFalling = false;
       this.fallingBlock = null;
