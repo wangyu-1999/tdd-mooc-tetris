@@ -33,6 +33,8 @@ export class Tetromino {
       case 2:
         if (!this.isRotated) {
           return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
+        }else{
+          return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, false);
         }
       default:
         return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
@@ -44,6 +46,8 @@ export class Tetromino {
       case 2:
         if (!this.isRotated) {
           return new Tetromino(this.shape.rotateRight().shape, this.numberOfOrientations, true);
+        }else{
+          return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, false);
         }
       default:
         return new Tetromino(this.shape.rotateLeft().shape, this.numberOfOrientations, true);
