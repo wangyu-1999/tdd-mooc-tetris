@@ -82,10 +82,10 @@ export class Board {
       return;
     }
 
-    if (row + 1 < this.height && this.board[row + 1][column] === ".") {
+    if (row + 1 < this.height && this.canFall()) {
       this.board[row][column] = ".";
       this.fallingBlockTopLeftPosition.row += 1;
-      this.board[this.fallingBlockTopLeftPosition.row][column] = this.fallingBlock.shape[0][0];
+      this.fillBlockToBoard();
     } else {
       this.isFalling = false;
       this.fallingBlock = null;
