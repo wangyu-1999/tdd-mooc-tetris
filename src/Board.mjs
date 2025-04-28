@@ -61,6 +61,16 @@ export class Board {
   hasFalling() {
     return this.isFalling;
   }
+  canFall() {
+    if (!this.isFalling) {
+      return false;
+    }
+    const lastNonEmptyRow = this.fallingBlockLastNonEmptyRow;
+    if (this.board[lastNonEmptyRow + 1][this.fallingBlockTopLeftPosition.column] === ".") {
+      return true;
+    }
+    return false;
+  }
 
   tick() {
     const { row, column } = this.fallingBlockTopLeftPosition;
