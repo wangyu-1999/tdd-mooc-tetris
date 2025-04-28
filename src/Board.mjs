@@ -26,7 +26,7 @@ export class Board {
     }
     const middle = Math.floor((this.width - this.fallingBlock.width) / 2);
     this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
-    this.board[0][middle] = this.fallingBlock.shape[0][0];
+    this.fillBlockToBoard();
   }
 
   fillBlockToBoard() {
