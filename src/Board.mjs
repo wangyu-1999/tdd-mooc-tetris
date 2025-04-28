@@ -9,7 +9,7 @@ export class Board {
 
   get fallingBlockLastNonEmptyRow() {
     for (
-      let i = min(this.fallingBlockTopLeftPosition.row + this.fallingBlock.height - 1, this.height - 1);
+      let i = Math.min(this.fallingBlockTopLeftPosition.row + this.fallingBlock.height - 1, this.height - 1);
       i >= this.fallingBlockTopLeftPosition.row;
       i--
     ) {
