@@ -29,6 +29,17 @@ export class Board {
     this.board[0][middle] = this.fallingBlock.shape[0][0];
   }
 
+  fillBlockToBoard() {
+    for (let i = 0; i < this.fallingBlock.height; i++) {
+      for (let j = 0; j < this.fallingBlock.width; j++) {
+        if (this.fallingBlock.shape[i][j] !== ".") {
+          this.board[this.fallingBlockTopLeftPosition.row + i][this.fallingBlockTopLeftPosition.column + j] =
+            this.fallingBlock.shape[i][j];
+        }
+      }
+    }
+  }
+
   hasFalling() {
     return this.isFalling;
   }
