@@ -53,6 +53,15 @@ export class Board {
     return points.some((p) => this.board[p.y][p.x] !== "." && !pointSet.has(p.x, p.y));
   }
 
+  stopFalling() {
+    if (!this.isFalling) {
+      return;
+    }
+    this.isFalling = false;
+    this.fallingBlock = null;
+    this.fallingBlockTopLeftPosition = null;
+  }
+
   moveLeft() {
     const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
       x: p.x - 1,
