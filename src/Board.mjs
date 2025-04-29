@@ -141,20 +141,6 @@ export class Board {
     return this.isFalling;
   }
 
-  canFall() {
-    if (!this.isFalling) {
-      return false;
-    }
-    const lastNonEmptyRow = this.fallingBlockLastNonEmptyRow;
-    if (lastNonEmptyRow === this.height - 1) {
-      return false;
-    }
-    if (this.board[lastNonEmptyRow + 1][this.fallingBlockTopLeftPosition.column] === ".") {
-      return true;
-    }
-    return false;
-  }
-
   tick() {
     if (!this.isFalling) {
       return;
