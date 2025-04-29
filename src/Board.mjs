@@ -1,4 +1,5 @@
 import { Tetromino } from "./Tetromino.mjs";
+import { PointSet } from "./PointSet.mjs";
 
 export class Board {
   width;
@@ -39,8 +40,17 @@ export class Board {
     }));
   }
 
-  IsBeyondBoard(points) {
+  isBeyondBoard(points) {
     return points.some((p) => p.x < 0 || p.x >= this.width || p.y < 0 || p.y >= this.height);
+  }
+
+  isBlockOverlapping(points) {
+    const fallingBlockPoints = this.getFallingBlockPoints();
+    const pointSet = new PointSet();
+    fallingBlockPoints.forEach((p) => {
+      pointSet.add(p.x, p.y);
+    });
+    return points.some((p) => this.board[p.y][p.x] !== "." && !pointSet.has(p.x, p.y));
   }
 
   moveLeft() {
