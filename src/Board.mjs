@@ -36,6 +36,13 @@ export class Board {
     if (!this.isFalling) {
       return;
     }
+    const { row, column } = this.fallingBlockTopLeftPosition;
+    const lastNonEmptyRow = this.fallingBlockLastNonEmptyRow;
+    for (let i = row; i <= lastNonEmptyRow; i++) {
+      if (this.board[i][column - 1] !== ".") {
+        return;
+      }
+    }
     this.removeBlockFromBoard();
     this.fallingBlockTopLeftPosition.column -= 1;
     this.fillBlockToBoard();
