@@ -80,7 +80,11 @@ export class Board {
   }
 
   moveDown() {
-    if (!this.isFalling) {
+    const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
+      x: p.x,
+      y: p.y + 1,
+    }));
+    if (!this.isFalling || this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
       return;
     }
     this.removeBlockFromBoard();
