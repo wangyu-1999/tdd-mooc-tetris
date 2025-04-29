@@ -8,24 +8,6 @@ export class Board {
   fallingBlock;
   fallingBlockTopLeftPosition;
 
-  get fallingBlockLastNonEmptyRow() {
-    for (
-      let i = Math.min(this.fallingBlockTopLeftPosition.row + this.fallingBlock.height - 1, this.height - 1);
-      i >= this.fallingBlockTopLeftPosition.row;
-      i--
-    ) {
-      for (
-        let j = this.fallingBlockTopLeftPosition.column;
-        j < this.fallingBlockTopLeftPosition.column + this.fallingBlock.width;
-        j++
-      ) {
-        if (this.board[i][j] !== ".") {
-          return i;
-        }
-      }
-    }
-  }
-
   constructor(width, height) {
     this.width = width;
     this.height = height;
