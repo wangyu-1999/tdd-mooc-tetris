@@ -4,6 +4,17 @@ export class Tetromino {
   rotatingShapeObj;
   numberOfOrientations;
   isRotated;
+  get points() {
+    const points = [];
+    for (let i = 0; i < this.shape.length; i++) {
+      for (let j = 0; j < this.shape[i].length; j++) {
+        if (this.shape[i][j] !== ".") {
+          points.push({ x: j, y: i });
+        }
+      }
+    }
+    return points;
+  }
 
   get shape() {
     return this.rotatingShapeObj.shape;
@@ -78,6 +89,7 @@ export class Tetromino {
         return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, true);
     }
   }
+
   toString() {
     return this.rotatingShapeObj.toString();
   }
