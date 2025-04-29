@@ -71,11 +71,15 @@ export class Board {
   hasFalling() {
     return this.isFalling;
   }
+
   canFall() {
     if (!this.isFalling) {
       return false;
     }
     const lastNonEmptyRow = this.fallingBlockLastNonEmptyRow;
+    if (lastNonEmptyRow === this.height - 1) {
+      return false;
+    }
     if (this.board[lastNonEmptyRow + 1][this.fallingBlockTopLeftPosition.column] === ".") {
       return true;
     }
@@ -83,6 +87,9 @@ export class Board {
   }
 
   tick() {
+    if (!this.isFalling) {
+      return;
+    }
     const { row, column } = this.fallingBlockTopLeftPosition;
 
     if (row === this.height - 1) {
@@ -93,7 +100,7 @@ export class Board {
     }
 
     if (row + 1 < this.height && this.canFall()) {
-      this.board[row][column] = ".";
+      this.removeBlockFromBoard();
       this.fallingBlockTopLeftPosition.row += 1;
       this.fillBlockToBoard();
     } else {
