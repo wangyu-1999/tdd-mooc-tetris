@@ -65,6 +65,15 @@ export class Board {
     this.fillBlockToBoard();
   }
 
+  moveDown() {
+    if (!this.isFalling) {
+      return;
+    }
+    this.removeBlockFromBoard();
+    this.fallingBlockTopLeftPosition.row += 1;
+    this.fillBlockToBoard();
+  }
+
   drop(block) {
     if (this.isFalling) {
       throw new Error("already falling");
