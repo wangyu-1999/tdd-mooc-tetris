@@ -58,3 +58,23 @@ describe("Falling tetrominoes", () => {
     );
   });
 });
+
+describe("Falling tetrominoes can be moved", () => {
+  let board;
+  beforeEach(() => {
+    board = new Board(10, 6);
+  });
+
+  test("tetrominoes can be moved left", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.moveLeft();
+    expect(board.toString()).to.equalShape(
+      `...T......
+       ..TTT.....
+       ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
+});
