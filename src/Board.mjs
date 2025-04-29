@@ -32,6 +32,15 @@ export class Board {
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
   }
 
+  moveLeft() {
+    if (!this.isFalling) {
+      return;
+    }
+    this.removeBlockFromBoard();
+    this.fallingBlockTopLeftPosition.column -= 1;
+    this.fillBlockToBoard();
+  }
+
   drop(block) {
     if (this.isFalling) {
       throw new Error("already falling");
