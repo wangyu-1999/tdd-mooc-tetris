@@ -32,6 +32,13 @@ export class Board {
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
   }
 
+  getFallingBlockPoints() {
+    return this.fallingBlock.points.map((p) => ({
+      x: p.x + this.fallingBlockTopLeftPosition.column,
+      y: p.y + this.fallingBlockTopLeftPosition.row,
+    }));
+  }
+
   moveLeft() {
     if (!this.isFalling) {
       return;
