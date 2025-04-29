@@ -67,16 +67,12 @@ export class Board {
   }
 
   moveRight() {
-    if (!this.isFalling) {
+    const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
+      x: p.x + 1,
+      y: p.y,
+    }));
+    if (!this.isFalling || this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
       return;
-    }
-    const { row, column } = this.fallingBlockTopLeftPosition;
-    const lastNonEmptyRow = this.fallingBlockLastNonEmptyRow;
-    const width = this.fallingBlock.width;
-    for (let i = row; i <= lastNonEmptyRow; i++) {
-      if (this.board[i][column + width + 1] !== ".") {
-        return;
-      }
     }
     this.removeBlockFromBoard();
     this.fallingBlockTopLeftPosition.column += 1;
