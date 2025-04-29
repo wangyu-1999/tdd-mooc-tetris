@@ -159,20 +159,17 @@ export class Board {
     if (!this.isFalling) {
       return;
     }
-    const { row, column } = this.fallingBlockTopLeftPosition;
-
-    if (row === this.height - 1) {
+    const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
+      x: p.x,
+      y: p.y + 1,
+    }));
+    if (this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
       this.stopFalling();
       return;
     }
-
-    if (row + 1 < this.height && this.canFall()) {
-      this.removeBlockFromBoard();
-      this.fallingBlockTopLeftPosition.row += 1;
-      this.fillBlockToBoard();
-    } else {
-      this.stopFalling();
-    }
+    this.removeBlockFromBoard();
+    this.fallingBlockTopLeftPosition.row += 1;
+    this.fillBlockToBoard();
   }
 
   toString() {
