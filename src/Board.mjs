@@ -162,9 +162,7 @@ export class Board {
     const { row, column } = this.fallingBlockTopLeftPosition;
 
     if (row === this.height - 1) {
-      this.isFalling = false;
-      this.fallingBlock = null;
-      this.fallingBlockTopLeftPosition = null;
+      this.stopFalling();
       return;
     }
 
@@ -173,9 +171,7 @@ export class Board {
       this.fallingBlockTopLeftPosition.row += 1;
       this.fillBlockToBoard();
     } else {
-      this.isFalling = false;
-      this.fallingBlock = null;
-      this.fallingBlockTopLeftPosition = null;
+      this.stopFalling();
     }
   }
 
