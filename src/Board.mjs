@@ -96,13 +96,9 @@ export class Board {
 
   rotateLeft() {
     let pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
-    if (this.isBeyondBoard(pointsAfterRotate) || this.isBlockOverlapping(pointsAfterRotate)) {
-      const kickMoveFlag = this.kickMove(pointsAfterRotate);
-      // TODO
-    }
-    this.removeBlockFromBoard();
-    this.fallingBlock = this.fallingBlock.rotateLeft();
-    this.fillBlockToBoard();
+    this.checkAndAction(pointsAfterRotate, () => {
+      this.fallingBlock = this.fallingBlock.rotateLeft();
+    });
   }
 
   rotateRight() {
