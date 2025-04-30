@@ -15,8 +15,8 @@ export class Board {
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
   }
 
-  getFallingBlockPoints() {
-    return this.fallingBlock.points.map((p) => ({
+  getFallingBlockPoints(block) {
+    return block.points.map((p) => ({
       x: p.x + this.fallingBlockTopLeftPosition.column,
       y: p.y + this.fallingBlockTopLeftPosition.row,
     }));
@@ -27,7 +27,7 @@ export class Board {
   }
 
   isBlockOverlapping(points) {
-    const fallingBlockPoints = this.getFallingBlockPoints();
+    const fallingBlockPoints = this.getFallingBlockPoints(this.fallingBlock);
     const pointSet = new PointSet();
     fallingBlockPoints.forEach((p) => {
       pointSet.add(p.x, p.y);
@@ -45,7 +45,7 @@ export class Board {
   }
 
   moveLeft() {
-    const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
+    const pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
       x: p.x - 1,
       y: p.y,
     }));
@@ -58,7 +58,7 @@ export class Board {
   }
 
   moveRight() {
-    const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
+    const pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
       x: p.x + 1,
       y: p.y,
     }));
@@ -71,7 +71,7 @@ export class Board {
   }
 
   moveDown() {
-    const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
+    const pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
       x: p.x,
       y: p.y + 1,
     }));
@@ -127,7 +127,7 @@ export class Board {
     if (!this.isFalling) {
       return;
     }
-    const pointsAfterMove = this.getFallingBlockPoints().map((p) => ({
+    const pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
       x: p.x,
       y: p.y + 1,
     }));
