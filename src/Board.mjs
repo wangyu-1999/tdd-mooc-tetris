@@ -95,9 +95,6 @@ export class Board {
   }
 
   rotateLeft() {
-    if (!this.isFalling) {
-      return;
-    }
     let pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
     if (this.isBeyondBoard(pointsAfterRotate) || this.isBlockOverlapping(pointsAfterRotate)) {
       const kickMoveFlag = this.kickMove(pointsAfterRotate);
@@ -110,13 +107,9 @@ export class Board {
 
   rotateRight() {
     const pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateRight());
-    if (!this.isFalling || this.isBeyondBoard(pointsAfterRotate) || this.isBlockOverlapping(pointsAfterRotate)) {
-      // TODO
-    } else {
-      this.removeBlockFromBoard();
+    this.checkAndAction(pointsAfterRotate, () => {
       this.fallingBlock = this.fallingBlock.rotateRight();
-      this.fillBlockToBoard();
-    }
+    });
   }
 
   moveDown() {
