@@ -113,12 +113,9 @@ export class Board {
       x: p.x,
       y: p.y + 1,
     }));
-    if (!this.isFalling || this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
-      return;
-    }
-    this.removeBlockFromBoard();
-    this.fallingBlockTopLeftPosition.row += 1;
-    this.fillBlockToBoard();
+    this.checkAndAction(pointsAfterMove, () => {
+      this.fallingBlockTopLeftPosition.row += 1;
+    });
   }
 
   drop(block) {
