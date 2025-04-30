@@ -178,4 +178,28 @@ describe("Falling tetrominoes can be moved", () => {
        TTT.......`
     );
   });
+
+  test("tetrominoes can not be moved right into another block", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    fallToBottom(board);
+    board.drop(Tetromino.T_SHAPE);
+    board.moveDown();
+    board.moveDown();
+    board.moveDown();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    expect(board.toString()).to.equalShape(
+      `..........
+       ..........
+       ..........
+       ......T...
+       .....TTTT.
+       .......TTT`
+    );
+  });
 });
