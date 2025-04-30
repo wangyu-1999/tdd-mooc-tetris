@@ -73,9 +73,21 @@ export class Board {
   rotateLeft() {
     const pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
     if (!this.isFalling || this.isBeyondBoard(pointsAfterRotate) || this.isBlockOverlapping(pointsAfterRotate)) {
+      // TODO
     } else {
       this.removeBlockFromBoard();
       this.fallingBlock = this.fallingBlock.rotateLeft();
+      this.fillBlockToBoard();
+    }
+  }
+
+  rotateRight() {
+    const pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateRight());
+    if (!this.isFalling || this.isBeyondBoard(pointsAfterRotate) || this.isBlockOverlapping(pointsAfterRotate)) {
+      // TODO
+    } else {
+      this.removeBlockFromBoard();
+      this.fallingBlock = this.fallingBlock.rotateRight();
       this.fillBlockToBoard();
     }
   }
