@@ -70,6 +70,16 @@ export class Board {
     this.fillBlockToBoard();
   }
 
+  rotateLeft() {
+    const pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
+    if (!this.isFalling || this.isBeyondBoard(pointsAfterRotate) || this.isBlockOverlapping(pointsAfterRotate)) {
+    } else {
+      this.removeBlockFromBoard();
+      this.fallingBlock = this.fallingBlock.rotateLeft();
+      this.fillBlockToBoard();
+    }
+  }
+
   moveDown() {
     const pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
       x: p.x,
