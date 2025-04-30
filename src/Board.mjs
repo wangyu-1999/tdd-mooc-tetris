@@ -85,6 +85,15 @@ export class Board {
     return moveFlag;
   }
 
+  checkAndAction(pointsAfterAction, action) {
+    if (!this.isFalling || this.isBeyondBoard(pointsAfterAction) || this.isBlockOverlapping(pointsAfterAction)) {
+      return;
+    }
+    this.removeBlockFromBoard();
+    action();
+    this.fillBlockToBoard();
+  }
+
   rotateLeft() {
     if (!this.isFalling) {
       return;
