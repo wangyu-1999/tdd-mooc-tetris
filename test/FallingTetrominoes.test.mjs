@@ -103,4 +103,21 @@ describe("Falling tetrominoes can be moved", () => {
        ..........`
     );
   });
+
+  test("tetrominoes can not be moved left out of bounds", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    expect(board.toString()).to.equalShape(
+      `.T........
+       TTT.......
+       ..........
+       ..........
+       ..........
+       ..........`
+    );
+  });
 });
