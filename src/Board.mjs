@@ -59,12 +59,9 @@ export class Board {
       x: p.x + 1,
       y: p.y,
     }));
-    if (!this.isFalling || this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
-      return;
-    }
-    this.removeBlockFromBoard();
-    this.fallingBlockTopLeftPosition.column += 1;
-    this.fillBlockToBoard();
+    this.checkAndAction(pointsAfterMove, () => {
+      this.fallingBlockTopLeftPosition.column += 1;
+    });
   }
 
   kickMoveFlag(points) {
