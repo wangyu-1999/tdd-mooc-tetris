@@ -70,6 +70,21 @@ export class Board {
     this.fillBlockToBoard();
   }
 
+  kickMove(points) {
+    let moveFlag = "none";
+    points.forEach((p) => {
+      if (p.x === 0) {
+        moveFlag = "right";
+        return;
+      }
+      if (p.x === this.width - 1) {
+        moveFlag = "left";
+        return;
+      }
+    });
+    return moveFlag;
+  }
+
   rotateLeft() {
     const pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
     if (!this.isFalling || this.isBeyondBoard(pointsAfterRotate) || this.isBlockOverlapping(pointsAfterRotate)) {
