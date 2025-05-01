@@ -183,10 +183,12 @@ export class Board {
   }
 
   removeBlockFromBoard() {
+    const { x, y } = this.fallingBlock.offset;
     for (let i = 0; i < this.fallingBlock.height; i++) {
       for (let j = 0; j < this.fallingBlock.width; j++) {
         if (this.fallingBlock.shape[i][j] !== ".") {
-          this.board[this.fallingBlockTopLeftPosition.row + i][this.fallingBlockTopLeftPosition.column + j] = ".";
+          this.board[this.fallingBlockTopLeftPosition.row + i - x][this.fallingBlockTopLeftPosition.column + j + y] =
+            ".";
         }
       }
     }
