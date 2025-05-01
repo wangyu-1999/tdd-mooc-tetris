@@ -17,13 +17,24 @@ export class Tetromino {
   }
 
   get offset(){
-    for (let i = 0; i < this.shape.length; i++) {
+    const res = { x: -1, y: -1 };
+    for (let i = 0; i < this.shape.length && res.x === -1; i++) {
       for (let j = 0; j < this.shape[i].length; j++) {
         if (this.shape[i][j] !== ".") {
-          return { x: j, y: i };
+          res.x = i;
+          break;
         }
       }
     }
+    for (let i = 0; i < this.shape[0].length && res.y === -1; i++) {
+      for (let j = 0; j < this.shape.length; j++) {
+        if (this.shape[j][i] !== ".") {
+          res.y = i;
+          break;
+        }
+      }
+    }
+    return res;
   }
 
   get shape() {
