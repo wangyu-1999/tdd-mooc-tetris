@@ -81,25 +81,68 @@ export class Board {
 
   checkAndAction(pointsAfterAction, action) {
     if (!this.isFalling || this.isBeyondBoard(pointsAfterAction) || this.isBlockOverlapping(pointsAfterAction)) {
-      return;
+      return false;
     }
     this.removeBlockFromBoard();
     action();
     this.fillBlockToBoard();
+    return true;
   }
 
   rotateLeft() {
     let pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
-    this.checkAndAction(pointsAfterRotate, () => {
+    const res = this.checkAndAction(pointsAfterRotate, () => {
       this.fallingBlock = this.fallingBlock.rotateLeft();
     });
+    if (!res) {
+      const kickMoveFlag = this.kickMoveFlag(this.getFallingBlockPoints(this.fallingBlock));
+      switch (kickMoveFlag) {
+        case "left":
+          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
+          this.checkAndAction(pointsAfterRotate, () => {
+            this.fallingBlock = this.fallingBlock.rotateLeft();
+            this.fallingBlock.column -= 1;
+          });
+          break;
+        case "right":
+          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
+          this.checkAndAction(pointsAfterRotate, () => {
+            this.fallingBlock = this.fallingBlock.rotateLeft();
+            this.fallingBlock.column += 1;
+          });
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   rotateRight() {
     const pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateRight());
-    this.checkAndAction(pointsAfterRotate, () => {
+    const res = this.checkAndAction(pointsAfterRotate, () => {
       this.fallingBlock = this.fallingBlock.rotateRight();
     });
+    if (!res) {
+      const kickMoveFlag = this.kickMoveFlag(this.getFallingBlockPoints(this.fallingBlock));
+      switch (kickMoveFlag) {
+        case "left":
+          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
+          this.checkAndAction(pointsAfterRotate, () => {
+            this.fallingBlock = this.fallingBlock.rotateRight();
+            this.fallingBlock.column -= 1;
+          });
+          break;
+        case "right":
+          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
+          this.checkAndAction(pointsAfterRotate, () => {
+            this.fallingBlock = this.fallingBlock.rotateRight();
+            this.fallingBlock.column += 1;
+          });
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   moveDown() {
