@@ -16,6 +16,16 @@ export class Tetromino {
     return points;
   }
 
+  get offset(){
+    for (let i = 0; i < this.shape.length; i++) {
+      for (let j = 0; j < this.shape[i].length; j++) {
+        if (this.shape[i][j] !== ".") {
+          return { x: j, y: i };
+        }
+      }
+    }
+  }
+
   get shape() {
     return this.rotatingShapeObj.shape;
   }
