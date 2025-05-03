@@ -50,10 +50,6 @@ describe("Rotating falling tetrominoes", () => {
     board.rotateRight();
     board.moveDown();
     board.rotateLeft();
-    // board.moveRight();
-    // board.moveRight();`
-    // board.rotateRight();
-    // fallToBottom(board);
 
     expect(board.toString()).to.equalShape(
       `..........
@@ -62,6 +58,32 @@ describe("Rotating falling tetrominoes", () => {
         ...IT.....
         ...I......
         ...I......`
+    );
+  });
+
+  test("a tetromino can kick the wall and rotate", () => {
+    board.drop(Tetromino.T_SHAPE);
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.rotateRight();
+    board.moveLeft();
+    expect(board.toString()).to.equalShape(
+      `T.........
+       TT........
+       T.........
+       ..........
+       ..........
+       ..........`
+    );
+    board.rotateLeft();
+    expect(board.toString()).to.equalShape(
+      `.T........
+       TTT........
+       ..........
+       ..........
+       ..........
+       ..........`
     );
   });
 });
