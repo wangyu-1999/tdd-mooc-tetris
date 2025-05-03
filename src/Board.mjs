@@ -153,21 +153,42 @@ export class Board {
       this.fallingBlock = this.fallingBlock.rotateLeft();
     });
     if (!res) {
-      const kickMoveFlag = this.kickMoveFlag(this.getFallingBlockPoints(this.fallingBlock));
+      let kickMoveFlag;
+      if (this.isClassTetromino) {
+        kickMoveFlag = this.kickMoveFlag(this.getFallingBlockPoints(this.fallingBlock));
+      } else {
+        kickMoveFlag = this.kickMoveFlag(this.fallingBlock.blocks);
+      }
       switch (kickMoveFlag) {
         case "left":
-          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
-          this.checkAndAction(pointsAfterRotate, () => {
-            this.fallingBlockTopLeftPosition.column -= 1;
-            this.fallingBlock = this.fallingBlock.rotateLeft();
-          });
+          if (this.isClassTetromino) {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlockTopLeftPosition.column -= 1;
+              this.fallingBlock = this.fallingBlock.rotateLeft();
+            });
+          } else {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlockTopLeftPosition.x -= 1;
+              this.fallingBlock = this.fallingBlock.rotateLeft();
+            });
+          }
           break;
         case "right":
-          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
-          this.checkAndAction(pointsAfterRotate, () => {
-            this.fallingBlockTopLeftPosition.column += 1;
-            this.fallingBlock = this.fallingBlock.rotateLeft();
-          });
+          if (this.isClassTetromino) {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlockTopLeftPosition.column += 1;
+              this.fallingBlock = this.fallingBlock.rotateLeft();
+            });
+          } else {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlockTopLeftPosition.x += 1;
+              this.fallingBlock = this.fallingBlock.rotateLeft();
+            });
+          }
           break;
         default:
           break;
@@ -192,18 +213,34 @@ export class Board {
       const kickMoveFlag = this.kickMoveFlag(this.getFallingBlockPoints(this.fallingBlock));
       switch (kickMoveFlag) {
         case "left":
-          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
-          this.checkAndAction(pointsAfterRotate, () => {
-            this.fallingBlock = this.fallingBlock.rotateRight();
-            this.fallingBlock.column -= 1;
-          });
+          if (this.isClassTetromino) {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlock = this.fallingBlock.rotateRight();
+              this.fallingBlock.column -= 1;
+            });
+          } else {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlock = this.fallingBlock.rotateRight();
+              this.fallingBlockTopLeftPosition.x -= 1;
+            });
+          }
           break;
         case "right":
-          pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
-          this.checkAndAction(pointsAfterRotate, () => {
-            this.fallingBlock = this.fallingBlock.rotateRight();
-            this.fallingBlock.column += 1;
-          });
+          if (this.isClassTetromino) {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlock = this.fallingBlock.rotateRight();
+              this.fallingBlock.column += 1;
+            });
+          } else {
+            pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
+            this.checkAndAction(pointsAfterRotate, () => {
+              this.fallingBlock = this.fallingBlock.rotateRight();
+              this.fallingBlockTopLeftPosition.x += 1;
+            });
+          }
           break;
         default:
           break;
