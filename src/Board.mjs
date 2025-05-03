@@ -92,7 +92,7 @@ export class Board {
     }
     this.newRemoveBlockFromBoard();
     action();
-    this.newFillBlockToBoard();
+    this.fillBlockToBoard();
     return true;
   }
 
@@ -170,10 +170,10 @@ export class Board {
     }
     const middle = Math.floor((this.width - this.fallingBlock.width) / 2);
     this.fallingBlockTopLeftPosition = { x: middle, y: 0 };
-    this.newFillBlockToBoard();
+    this.fillBlockToBoard();
   }
 
-  newFillBlockToBoard() {
+  fillBlockToBoard() {
     this.fallingBlock.blocks.forEach((block) => {
       const x = block[0] + this.fallingBlockTopLeftPosition.x;
       const y = block[1] + this.fallingBlockTopLeftPosition.y;
@@ -207,7 +207,7 @@ export class Board {
     }
     this.newRemoveBlockFromBoard();
     this.fallingBlockTopLeftPosition.y += 1;
-    this.newFillBlockToBoard();
+    this.fillBlockToBoard();
   }
 
   toString() {
