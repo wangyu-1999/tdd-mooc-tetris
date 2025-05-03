@@ -17,6 +17,10 @@ export class NewTetromino {
     return this.shapes[this.currentRotation];
   }
 
+  get width() {
+    return Math.max(...this.blocks.map(([x]) => x)) + 1;
+  }
+
   rotateRight() {
     const newRotation = (this.currentRotation + 1) % this.shapes.length;
     return new NewTetromino(this.type, newRotation);

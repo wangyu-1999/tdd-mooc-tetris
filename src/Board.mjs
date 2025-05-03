@@ -1,5 +1,6 @@
 import { Tetromino } from "./Tetromino.mjs";
 import { PointSet } from "./PointSet.mjs";
+import { NewTetromino } from "./NewTetromino.mjs";
 
 export class Board {
   width;
@@ -166,8 +167,21 @@ export class Board {
       this.fallingBlock = block;
     }
     const middle = Math.floor((this.width - this.fallingBlock.width) / 2);
-    this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
-    this.fillBlockToBoard();
+    if (this.fallingBlock instanceof Tetromino) {
+      this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
+      this.fillBlockToBoard();
+    } else {
+      this.fallingBlockTopLeftPosition = { x: middle, y: 0 };
+      this.newFillBlockToBoard();
+    }
+  }
+
+  newFillBlockToBoard() {
+    this.fallingBlock.blocks.forEach((block) => {
+      const x = block[0] + this.fallingBlockTopLeftPosition.x;
+      const y = block[1] + this.fallingBlockTopLeftPosition.y;
+      this.board[y][x] = this.fallingBlock.type;
+    });
   }
 
   fillBlockToBoard() {
