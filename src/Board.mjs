@@ -63,28 +63,13 @@ export class Board {
   }
 
   moveRight() {
-    let pointsAfterMove;
-    if (this.isClassTetromino) {
-      pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
-        x: p.x + 1,
-        y: p.y,
-      }));
-    } else {
-      pointsAfterMove = this.fallingBlock.blocks.map((block) => ({
-        x: block[0] + this.fallingBlockTopLeftPosition.x + 1,
-        y: block[1] + this.fallingBlockTopLeftPosition.y,
-      }));
-    }
-    this.checkAndAction(
-      pointsAfterMove,
-      this.isClassTetromino
-        ? () => {
-            this.fallingBlockTopLeftPosition.column += 1;
-          }
-        : () => {
-            this.fallingBlockTopLeftPosition.x += 1;
-          }
-    );
+    const pointsAfterMove = this.fallingBlock.blocks.map((block) => ({
+      x: block[0] + this.fallingBlockTopLeftPosition.x + 1,
+      y: block[1] + this.fallingBlockTopLeftPosition.y,
+    }));
+    this.checkAndAction(pointsAfterMove, () => {
+      this.fallingBlockTopLeftPosition.x += 1;
+    });
   }
 
   kickMoveFlag(points) {
