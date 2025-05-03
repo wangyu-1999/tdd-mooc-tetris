@@ -28,7 +28,15 @@ export class Board {
   }
 
   isBlockOverlapping(points) {
-    const fallingBlockPoints = this.getFallingBlockPoints(this.fallingBlock);
+    let fallingBlockPoints;
+    if (this.fallingBlock instanceof Tetromino) {
+      fallingBlockPoints = this.getFallingBlockPoints(this.fallingBlock);
+    } else {
+      fallingBlockPoints = this.fallingBlock.blocks.map((block) => ({
+        x: block[0] + this.fallingBlockTopLeftPosition.x,
+        y: block[1] + this.fallingBlockTopLeftPosition.y,
+      }));
+    }
     const pointSet = new PointSet();
     fallingBlockPoints.forEach((p) => {
       pointSet.add(p.x, p.y);
@@ -195,6 +203,14 @@ export class Board {
     }
   }
 
+  newRemoveBlockFromBoard() {
+    this.fallingBlock.blocks.forEach((block) => {
+      const x = block[0] + this.fallingBlockTopLeftPosition.x;
+      const y = block[1] + this.fallingBlockTopLeftPosition.y;
+      this.board[y][x] = ".";
+    });
+  }
+
   removeBlockFromBoard() {
     for (let i = 0; i < this.fallingBlock.height; i++) {
       for (let j = 0; j < this.fallingBlock.width; j++) {
@@ -213,6 +229,10 @@ export class Board {
     if (!this.isFalling) {
       return;
     }
+    if (this.fallingBlock instanceof NewTetromino) {
+      this.newTick();
+      return;
+    }
     const pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
       x: p.x,
       y: p.y + 1,
@@ -224,6 +244,20 @@ export class Board {
     this.removeBlockFromBoard();
     this.fallingBlockTopLeftPosition.row += 1;
     this.fillBlockToBoard();
+  }
+
+  newTick() {
+    const pointsAfterMove = this.fallingBlock.blocks.map((block) => ({
+      x: block[0] + this.fallingBlockTopLeftPosition.x,
+      y: block[1] + this.fallingBlockTopLeftPosition.y + 1,
+    }));
+    if (this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
+      this.stopFalling();
+      return;
+    }
+    this.newRemoveBlockFromBoard();
+    this.fallingBlockTopLeftPosition.y += 1;
+    this.newFillBlockToBoard();
   }
 
   toString() {
