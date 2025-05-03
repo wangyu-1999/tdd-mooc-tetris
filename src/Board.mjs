@@ -226,7 +226,7 @@ export class Board {
     }
     this.isFalling = true;
     if (typeof block === "string") {
-      this.fallingBlock = new Tetromino([[block]]);
+      this.fallingBlock = new NewTetromino(block);
     } else {
       this.fallingBlock = block;
     }
