@@ -16,6 +16,10 @@ export class Board {
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
   }
 
+  get isClassTetromino() {
+    return this.fallingBlock instanceof Tetromino;
+  }
+
   getFallingBlockPoints(block) {
     return block.points.map((p) => ({
       x: p.x + this.fallingBlockTopLeftPosition.column,
@@ -29,7 +33,7 @@ export class Board {
 
   isBlockOverlapping(points) {
     let fallingBlockPoints;
-    if (this.fallingBlock instanceof Tetromino) {
+    if (this.isClassTetromino) {
       fallingBlockPoints = this.getFallingBlockPoints(this.fallingBlock);
     } else {
       fallingBlockPoints = this.fallingBlock.blocks.map((block) => ({
@@ -55,7 +59,7 @@ export class Board {
 
   moveLeft() {
     let pointsAfterMove;
-    if (this.fallingBlock instanceof Tetromino) {
+    if (this.isClassTetromino) {
       pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
         x: p.x - 1,
         y: p.y,
@@ -69,7 +73,7 @@ export class Board {
 
     this.checkAndAction(
       pointsAfterMove,
-      this.fallingBlock instanceof Tetromino
+      this.isClassTetromino
         ? () => {
             this.fallingBlockTopLeftPosition.column -= 1;
           }
@@ -108,7 +112,7 @@ export class Board {
     if (!this.isFalling || this.isBeyondBoard(pointsAfterAction) || this.isBlockOverlapping(pointsAfterAction)) {
       return false;
     }
-    if (this.fallingBlock instanceof Tetromino) {
+    if (this.isClassTetromino) {
       this.removeBlockFromBoard();
       action();
       this.fillBlockToBoard();
@@ -197,7 +201,7 @@ export class Board {
       this.fallingBlock = block;
     }
     const middle = Math.floor((this.width - this.fallingBlock.width) / 2);
-    if (this.fallingBlock instanceof Tetromino) {
+    if (this.isClassTetromino) {
       this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
       this.fillBlockToBoard();
     } else {
@@ -251,7 +255,7 @@ export class Board {
     if (!this.isFalling) {
       return;
     }
-    if (this.fallingBlock instanceof NewTetromino) {
+    if (!this.isClassTetromino) {
       this.newTick();
       return;
     }
