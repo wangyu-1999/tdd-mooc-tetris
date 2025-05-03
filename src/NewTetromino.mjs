@@ -1,25 +1,28 @@
 export class NewTetromino {
   type;
   currentRotation;
+  shapes;
 
   constructor(type, currentRotation = 0) {
     this.type = type;
+    if (!NewTetromino.SHAPES[type]) {
+      this.shapes = [[0, 0]];
+    }
+    this.shapes = NewTetromino.SHAPES[type];
     this.currentRotation = currentRotation;
   }
 
   get blocks() {
-    return NewTetromino.SHAPES[this.type][this.currentRotation];
+    return this.shapes[this.currentRotation];
   }
 
   rotateRight() {
-    const shapes = NewTetromino.SHAPES[this.type];
-    const newRotation = (this.currentRotation + 1) % shapes.length;
+    const newRotation = (this.currentRotation + 1) % this.shapes.length;
     return new NewTetromino(this.type, newRotation);
   }
 
   rotateLeft() {
-    const shapes = NewTetromino.SHAPES[this.type];
-    const newRotation = (this.currentRotation - 1 + shapes.length) % shapes.length;
+    const newRotation = (this.currentRotation - 1 + this.shapes.length) % this.shapes.length;
     return new NewTetromino(this.type, newRotation);
   }
 
