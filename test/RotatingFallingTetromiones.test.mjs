@@ -91,7 +91,7 @@ describe("Rotating falling tetrominoes", () => {
   });
 
   test("a tetromino can kick the wall and rotate", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
