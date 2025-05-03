@@ -106,7 +106,7 @@ describe("Falling tetrominoes can be moved", () => {
   });
 
   test("tetrominoes can not be moved left out of bounds", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
@@ -123,7 +123,7 @@ describe("Falling tetrominoes can be moved", () => {
   });
 
   test("tetrominoes can not be moved right out of bounds", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveRight();
     board.moveRight();
     board.moveRight();
@@ -140,7 +140,7 @@ describe("Falling tetrominoes can be moved", () => {
   });
 
   test("tetrominoes can not be moved down out of bounds", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveDown();
     board.moveDown();
     board.moveDown();
@@ -157,7 +157,7 @@ describe("Falling tetrominoes can be moved", () => {
   });
 
   test("tetrominoes can not be moved left into another block", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
@@ -181,13 +181,13 @@ describe("Falling tetrominoes can be moved", () => {
   });
 
   test("tetrominoes can not be moved right into another block", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveRight();
     board.moveRight();
     board.moveRight();
     board.moveRight();
     fallToBottom(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveDown();
     board.moveDown();
     board.moveDown();
@@ -205,9 +205,9 @@ describe("Falling tetrominoes can be moved", () => {
   });
 
   test("tetrominoes can not be moved down into another block", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     fallToBottom(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveDown();
     board.moveDown();
     board.moveDown();
