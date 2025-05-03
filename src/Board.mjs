@@ -180,13 +180,8 @@ export class Board {
       this.fallingBlock = block;
     }
     const middle = Math.floor((this.width - this.fallingBlock.width) / 2);
-    if (this.isClassTetromino) {
-      this.fallingBlockTopLeftPosition = { column: middle, row: 0 };
-      this.fillBlockToBoard();
-    } else {
-      this.fallingBlockTopLeftPosition = { x: middle, y: 0 };
-      this.newFillBlockToBoard();
-    }
+    this.fallingBlockTopLeftPosition = { x: middle, y: 0 };
+    this.newFillBlockToBoard();
   }
 
   newFillBlockToBoard() {
