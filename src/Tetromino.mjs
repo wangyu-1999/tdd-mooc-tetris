@@ -1,117 +1,198 @@
-import { RotatingShape } from "./RotatingShape.mjs";
-
 export class Tetromino {
-  rotatingShapeObj;
-  numberOfOrientations;
-  isRotated;
-  get points() {
-    const points = [];
-    for (let i = 0; i < this.shape.length; i++) {
-      for (let j = 0; j < this.shape[i].length; j++) {
-        if (this.shape[i][j] !== ".") {
-          points.push({ x: j, y: i });
-        }
-      }
+  type;
+  currentRotation;
+  shapes;
+
+  constructor(type, currentRotation = 0) {
+    this.type = type;
+    if (!Tetromino.SHAPES[type]) {
+      this.shapes = [[[0, 0]]];
+    } else {
+      this.shapes = Tetromino.SHAPES[type];
     }
-    return points;
+    this.currentRotation = currentRotation;
   }
 
-  get offset(){
-    const res = { x: -1, y: -1 };
-    for (let i = 0; i < this.shape.length && res.x === -1; i++) {
-      for (let j = 0; j < this.shape[i].length; j++) {
-        if (this.shape[i][j] !== ".") {
-          res.x = i;
-          break;
-        }
-      }
-    }
-    for (let i = 0; i < this.shape[0].length && res.y === -1; i++) {
-      for (let j = 0; j < this.shape.length; j++) {
-        if (this.shape[j][i] !== ".") {
-          res.y = i;
-          break;
-        }
-      }
-    }
-    return res;
-  }
-
-  get shape() {
-    return this.rotatingShapeObj.shape;
+  get blocks() {
+    return this.shapes[this.currentRotation];
   }
 
   get width() {
-    return this.shape.length;
-  }
-
-  get height() {
-    return this.shape[0].length;
-  }
-
-  static T_SHAPE = new Tetromino(
-    [
-      [".", "T", "."],
-      ["T", "T", "T"],
-      [".", ".", "."],
-    ],
-    4
-  );
-  static I_SHAPE = new Tetromino(
-    [
-      [".", ".", ".", ".", "."],
-      [".", ".", ".", ".", "."],
-      ["I", "I", "I", "I", "."],
-      [".", ".", ".", ".", "."],
-      [".", ".", ".", ".", "."],
-    ],
-    2
-  );
-  static O_SHAPE = new Tetromino(
-    [
-      [".", "O", "O"],
-      [".", "O", "O"],
-      [".", ".", "."],
-    ],
-    1
-  );
-  constructor(shape, numberOfOrientations = 4, isRotated = false) {
-    this.rotatingShapeObj = new RotatingShape(shape);
-    this.numberOfOrientations = numberOfOrientations;
-    this.isRotated = isRotated;
+    return Math.max(...this.blocks.map(([x]) => x)) + 1;
   }
 
   rotateRight() {
-    switch (this.numberOfOrientations) {
-      case 1:
-        return this;
-      case 2:
-        if (!this.isRotated) {
-          return new Tetromino(this.rotatingShapeObj.rotateRight().shape, this.numberOfOrientations, true);
-        } else {
-          return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, false);
-        }
-      default:
-        return new Tetromino(this.rotatingShapeObj.rotateRight().shape, this.numberOfOrientations, true);
-    }
+    const newRotation = (this.currentRotation + 1) % this.shapes.length;
+    return new Tetromino(this.type, newRotation);
   }
 
   rotateLeft() {
-    switch (this.numberOfOrientations) {
-      case 1:
-        return this;
-      case 2:
-        if (!this.isRotated) {
-          return new Tetromino(this.rotatingShapeObj.rotateRight().shape, this.numberOfOrientations, true);
-        } else {
-          return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, false);
-        }
-      default:
-        return new Tetromino(this.rotatingShapeObj.rotateLeft().shape, this.numberOfOrientations, true);
-    }
+    const newRotation = (this.currentRotation - 1 + this.shapes.length) % this.shapes.length;
+    return new Tetromino(this.type, newRotation);
   }
 
   toString() {
-    return this.rotatingShapeObj.toString();
+    let minX = Infinity,
+      minY = Infinity;
+    let maxX = -Infinity,
+      maxY = -Infinity;
+
+    this.blocks.forEach(([x, y]) => {
+      minX = Math.min(minX, x);
+      minY = Math.min(minY, y);
+      maxX = Math.max(maxX, x);
+      maxY = Math.max(maxY, y);
+    });
+
+    const width = maxX - minX + 1;
+    const height = maxY - minY + 1;
+    const grid = Array(height)
+      .fill()
+      .map(() => Array(width).fill("."));
+
+    this.blocks.forEach(([x, y]) => {
+      grid[y - minY][x - minX] = this.type;
+    });
+
+    return grid.map((row) => row.join("")).join("\n") + "\n";
   }
+
+  static SHAPES = {
+    T: [
+      [
+        [1, 0],
+        [0, 1],
+        [1, 1],
+        [2, 1],
+      ],
+      [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+        [1, 1],
+      ],
+      [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [1, 1],
+      ],
+      [
+        [1, 0],
+        [0, 1],
+        [1, 1],
+        [1, 2],
+      ],
+    ],
+    I: [
+      [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [3, 0],
+      ],
+      [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+        [0, 3],
+      ],
+    ],
+    O: [
+      [
+        [0, 0],
+        [1, 0],
+        [0, 1],
+        [1, 1],
+      ],
+    ],
+    L: [
+      [
+        [0, 0],
+        [0, 1],
+        [1, 1],
+        [2, 1],
+      ],
+      [
+        [0, 0],
+        [1, 0],
+        [0, 1],
+        [0, 2],
+      ],
+      [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [2, 1],
+      ],
+      [
+        [1, 0],
+        [1, 1],
+        [1, 2],
+        [0, 2],
+      ],
+    ],
+    J: [
+      [
+        [0, 1],
+        [1, 1],
+        [2, 1],
+        [2, 0],
+      ],
+      [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+        [1, 2],
+      ],
+      [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [2, 0],
+      ],
+      [
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [1, 2],
+      ],
+    ],
+    S: [
+      [
+        [1, 0],
+        [2, 0],
+        [0, 1],
+        [1, 1],
+      ],
+      [
+        [0, 0],
+        [0, 1],
+        [1, 1],
+        [1, 2],
+      ],
+    ],
+    Z: [
+      [
+        [0, 0],
+        [1, 0],
+        [1, 1],
+        [2, 1],
+      ],
+      [
+        [1, 0],
+        [0, 1],
+        [1, 1],
+        [0, 2],
+      ],
+    ],
+  };
+
+  static T_SHAPE = new Tetromino("T");
+  static I_SHAPE = new Tetromino("I");
+  static O_SHAPE = new Tetromino("O");
+  static L_SHAPE = new Tetromino("L");
+  static J_SHAPE = new Tetromino("J");
+  static S_SHAPE = new Tetromino("S");
+  static Z_SHAPE = new Tetromino("Z");
 }

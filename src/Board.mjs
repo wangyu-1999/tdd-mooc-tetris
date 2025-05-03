@@ -1,6 +1,5 @@
-import { Tetromino } from "./Tetromino.mjs";
 import { PointSet } from "./PointSet.mjs";
-import { NewTetromino } from "./NewTetromino.mjs";
+import { Tetromino } from "./Tetromino.mjs";
 
 export class Board {
   width;
@@ -164,7 +163,7 @@ export class Board {
     }
     this.isFalling = true;
     if (typeof block === "string") {
-      this.fallingBlock = new NewTetromino(block);
+      this.fallingBlock = new Tetromino(block);
     } else {
       this.fallingBlock = block;
     }

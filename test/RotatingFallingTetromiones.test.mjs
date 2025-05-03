@@ -2,7 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
-import { NewTetromino } from "../src/NewTetromino.mjs";
+import { Tetromino } from "../src/Tetromino.mjs";
 
 function fallToBottom(board) {
   for (let i = 0; i < 10; i++) {
@@ -17,7 +17,7 @@ describe("Rotating falling tetrominoes", () => {
   });
 
   test("a tetromino can be rotated left", () => {
-    board.drop(NewTetromino.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     board.rotateLeft();
     expect(board.toString()).to.equalShape(
       `....T.....
@@ -30,7 +30,7 @@ describe("Rotating falling tetrominoes", () => {
   });
 
   test("a tetromino can be rotated right", () => {
-    board.drop(NewTetromino.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     board.rotateRight();
     expect(board.toString()).to.equalShape(
       `...T......
@@ -43,7 +43,7 @@ describe("Rotating falling tetrominoes", () => {
   });
 
   test("a tetromino cannot be rotated when there is no room", () => {
-    board.drop(NewTetromino.I_SHAPE);
+    board.drop(Tetromino.I_SHAPE);
     board.moveLeft();
     board.rotateRight();
     fallToBottom(board);
@@ -55,7 +55,7 @@ describe("Rotating falling tetrominoes", () => {
         ..I.......
         ..I.......`
     );
-    board.drop(NewTetromino.I_SHAPE);
+    board.drop(Tetromino.I_SHAPE);
     board.moveRight();
     board.moveRight();
     board.rotateRight();
@@ -68,7 +68,7 @@ describe("Rotating falling tetrominoes", () => {
         ..I..I....
         ..I..I....`
     );
-    board.drop(NewTetromino.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     board.rotateRight();
     board.moveDown();
     expect(board.toString()).to.equalShape(
@@ -91,7 +91,7 @@ describe("Rotating falling tetrominoes", () => {
   });
 
   test("a tetromino can kick the wall and rotate", () => {
-    board.drop(NewTetromino.T_SHAPE);
+    board.drop(Tetromino.T_SHAPE);
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
