@@ -32,15 +32,10 @@ export class Board {
   }
 
   isBlockOverlapping(points) {
-    let fallingBlockPoints;
-    if (this.isClassTetromino) {
-      fallingBlockPoints = this.getFallingBlockPoints(this.fallingBlock);
-    } else {
-      fallingBlockPoints = this.fallingBlock.blocks.map((block) => ({
-        x: block[0] + this.fallingBlockTopLeftPosition.x,
-        y: block[1] + this.fallingBlockTopLeftPosition.y,
-      }));
-    }
+    const fallingBlockPoints = this.fallingBlock.blocks.map((block) => ({
+      x: block[0] + this.fallingBlockTopLeftPosition.x,
+      y: block[1] + this.fallingBlockTopLeftPosition.y,
+    }));
     const pointSet = new PointSet();
     fallingBlockPoints.forEach((p) => {
       pointSet.add(p.x, p.y);

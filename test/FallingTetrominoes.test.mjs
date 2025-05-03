@@ -162,7 +162,7 @@ describe("Falling tetrominoes can be moved", () => {
     board.moveLeft();
     board.moveLeft();
     fallToBottom(board);
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveDown();
     board.moveDown();
     board.moveDown();
