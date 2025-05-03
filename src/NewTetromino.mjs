@@ -1,4 +1,4 @@
-export class NewTromino {
+export class NewTetromino {
   type;
   currentRotation;
 
@@ -8,19 +8,19 @@ export class NewTromino {
   }
 
   get blocks() {
-    return NewTromino.SHAPES[this.type][this.currentRotation];
+    return NewTetromino.SHAPES[this.type][this.currentRotation];
   }
 
   rotateRight() {
-    const shapes = NewTromino.SHAPES[this.type];
+    const shapes = NewTetromino.SHAPES[this.type];
     const newRotation = (this.currentRotation + 1) % shapes.length;
-    return new NewTromino(this.type, newRotation);
+    return new NewTetromino(this.type, newRotation);
   }
 
   rotateLeft() {
-    const shapes = NewTromino.SHAPES[this.type];
+    const shapes = NewTetromino.SHAPES[this.type];
     const newRotation = (this.currentRotation - 1 + shapes.length) % shapes.length;
-    return new NewTromino(this.type, newRotation);
+    return new NewTetromino(this.type, newRotation);
   }
 
   toString() {
@@ -180,11 +180,11 @@ export class NewTromino {
     ],
   };
 
-  static T_SHAPE = new NewTromino("T");
-  static I_SHAPE = new NewTromino("I");
-  static O_SHAPE = new NewTromino("O");
-  static L_SHAPE = new NewTromino("L");
-  static J_SHAPE = new NewTromino("J");
-  static S_SHAPE = new NewTromino("S");
-  static Z_SHAPE = new NewTromino("Z");
+  static T_SHAPE = new NewTetromino("T");
+  static I_SHAPE = new NewTetromino("I");
+  static O_SHAPE = new NewTetromino("O");
+  static L_SHAPE = new NewTetromino("L");
+  static J_SHAPE = new NewTetromino("J");
+  static S_SHAPE = new NewTetromino("S");
+  static Z_SHAPE = new NewTetromino("Z");
 }
