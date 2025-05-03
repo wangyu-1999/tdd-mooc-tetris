@@ -90,7 +90,7 @@ export class Board {
     if (!this.isFalling || this.isBeyondBoard(pointsAfterAction) || this.isBlockOverlapping(pointsAfterAction)) {
       return false;
     }
-    this.newRemoveBlockFromBoard();
+    this.removeBlockFromBoard();
     action();
     this.fillBlockToBoard();
     return true;
@@ -181,7 +181,7 @@ export class Board {
     });
   }
 
-  newRemoveBlockFromBoard() {
+  removeBlockFromBoard() {
     this.fallingBlock.blocks.forEach((block) => {
       const x = block[0] + this.fallingBlockTopLeftPosition.x;
       const y = block[1] + this.fallingBlockTopLeftPosition.y;
@@ -205,7 +205,7 @@ export class Board {
       this.stopFalling();
       return;
     }
-    this.newRemoveBlockFromBoard();
+    this.removeBlockFromBoard();
     this.fallingBlockTopLeftPosition.y += 1;
     this.fillBlockToBoard();
   }
