@@ -100,15 +100,15 @@ export class Board {
         case "left":
           pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x - 1, y: p.y }));
           this.checkAndAction(pointsAfterRotate, () => {
+            this.fallingBlockTopLeftPosition.column -= 1;
             this.fallingBlock = this.fallingBlock.rotateLeft();
-            this.fallingBlock.column -= 1;
           });
           break;
         case "right":
           pointsAfterRotate = pointsAfterRotate.map((p) => ({ x: p.x + 1, y: p.y }));
           this.checkAndAction(pointsAfterRotate, () => {
+            this.fallingBlockTopLeftPosition.column += 1;
             this.fallingBlock = this.fallingBlock.rotateLeft();
-            this.fallingBlock.column += 1;
           });
           break;
         default:
