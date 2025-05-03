@@ -20,13 +20,6 @@ export class Board {
     return this.fallingBlock instanceof Tetromino;
   }
 
-  getFallingBlockPoints(block) {
-    return block.points.map((p) => ({
-      x: p.x + this.fallingBlockTopLeftPosition.column,
-      y: p.y + this.fallingBlockTopLeftPosition.row,
-    }));
-  }
-
   isBeyondBoard(points) {
     return points.some((p) => p.x < 0 || p.x >= this.width || p.y < 0 || p.y >= this.height);
   }
