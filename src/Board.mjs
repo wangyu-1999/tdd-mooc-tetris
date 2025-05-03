@@ -140,7 +140,15 @@ export class Board {
   }
 
   rotateLeft() {
-    let pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
+    let pointsAfterRotate;
+    if (this.isClassTetromino) {
+      pointsAfterRotate = this.getFallingBlockPoints(this.fallingBlock.rotateLeft());
+    } else {
+      pointsAfterRotate = this.fallingBlock.rotateLeft().blocks.map((block) => ({
+        x: block[0] + this.fallingBlockTopLeftPosition.x,
+        y: block[1] + this.fallingBlockTopLeftPosition.y,
+      }));
+    }
     const res = this.checkAndAction(pointsAfterRotate, () => {
       this.fallingBlock = this.fallingBlock.rotateLeft();
     });
