@@ -192,33 +192,12 @@ export class Board {
     });
   }
 
-  fillBlockToBoard() {
-    for (let i = 0; i < this.fallingBlock.height; i++) {
-      for (let j = 0; j < this.fallingBlock.width; j++) {
-        if (this.fallingBlock.shape[i][j] !== ".") {
-          this.board[this.fallingBlockTopLeftPosition.row + i][this.fallingBlockTopLeftPosition.column + j] =
-            this.fallingBlock.shape[i][j];
-        }
-      }
-    }
-  }
-
   newRemoveBlockFromBoard() {
     this.fallingBlock.blocks.forEach((block) => {
       const x = block[0] + this.fallingBlockTopLeftPosition.x;
       const y = block[1] + this.fallingBlockTopLeftPosition.y;
       this.board[y][x] = ".";
     });
-  }
-
-  removeBlockFromBoard() {
-    for (let i = 0; i < this.fallingBlock.height; i++) {
-      for (let j = 0; j < this.fallingBlock.width; j++) {
-        if (this.fallingBlock.shape[i][j] !== ".") {
-          this.board[this.fallingBlockTopLeftPosition.row + i][this.fallingBlockTopLeftPosition.column + j] = ".";
-        }
-      }
-    }
   }
 
   hasFalling() {
