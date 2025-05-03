@@ -91,15 +91,9 @@ export class Board {
     if (!this.isFalling || this.isBeyondBoard(pointsAfterAction) || this.isBlockOverlapping(pointsAfterAction)) {
       return false;
     }
-    if (this.isClassTetromino) {
-      this.removeBlockFromBoard();
-      action();
-      this.fillBlockToBoard();
-    } else {
-      this.newRemoveBlockFromBoard();
-      action();
-      this.newFillBlockToBoard();
-    }
+    this.newRemoveBlockFromBoard();
+    action();
+    this.newFillBlockToBoard();
     return true;
   }
 
