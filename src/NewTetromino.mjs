@@ -6,9 +6,10 @@ export class NewTetromino {
   constructor(type, currentRotation = 0) {
     this.type = type;
     if (!NewTetromino.SHAPES[type]) {
-      this.shapes = [[0, 0]];
+      this.shapes = [[[0, 0]]];
+    } else {
+      this.shapes = NewTetromino.SHAPES[type];
     }
-    this.shapes = NewTetromino.SHAPES[type];
     this.currentRotation = currentRotation;
   }
 
