@@ -93,7 +93,7 @@ describe("Falling tetrominoes can be moved", () => {
   });
 
   test("tetrominoes can be moved down", () => {
-    board.drop(Tetromino.T_SHAPE);
+    board.drop(NewTetromino.T_SHAPE);
     board.moveDown();
     expect(board.toString()).to.equalShape(
       `..........
