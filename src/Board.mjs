@@ -229,24 +229,6 @@ export class Board {
     if (!this.isFalling) {
       return;
     }
-    if (!this.isClassTetromino) {
-      this.newTick();
-      return;
-    }
-    const pointsAfterMove = this.getFallingBlockPoints(this.fallingBlock).map((p) => ({
-      x: p.x,
-      y: p.y + 1,
-    }));
-    if (this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
-      this.stopFalling();
-      return;
-    }
-    this.removeBlockFromBoard();
-    this.fallingBlockTopLeftPosition.row += 1;
-    this.fillBlockToBoard();
-  }
-
-  newTick() {
     const pointsAfterMove = this.fallingBlock.blocks.map((block) => ({
       x: block[0] + this.fallingBlockTopLeftPosition.x,
       y: block[1] + this.fallingBlockTopLeftPosition.y + 1,
