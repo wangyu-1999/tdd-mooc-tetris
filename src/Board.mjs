@@ -224,6 +224,14 @@ export class Board {
     }
   }
 
+  clearRows(rowIndices) {
+    rowIndices.sort((a, b) => b - a);
+
+    for (const rowIndex of rowIndices) {
+      this.board.splice(rowIndex, 1);
+      this.board.unshift(Array(this.width).fill("."));
+    }
+  }
 
   toString() {
     return this.board.map((r) => r.join("")).join("\n") + "\n";
