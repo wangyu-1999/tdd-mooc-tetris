@@ -234,12 +234,13 @@ export class Board {
     }
 
     if (fullRows.length > 0) {
-      this.clearRows(fullRows);
+      this.clearLines(fullRows);
     }
   }
 
-  clearRows(rowIndices) {
-    for (const rowIndex of rowIndices) {
+  clearLines(lineIndices) {
+    this.notifyObservers({ type: "linesCleared", linesCleared: lineIndices.length });
+    for (const rowIndex of lineIndices) {
       this.board.splice(rowIndex, 1);
       this.board.unshift(Array(this.width).fill("."));
     }
