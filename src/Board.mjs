@@ -202,12 +202,28 @@ export class Board {
     }));
     if (this.isBeyondBoard(pointsAfterMove) || this.isBlockOverlapping(pointsAfterMove)) {
       this.stopFalling();
+      this.checkForLineClear();
       return;
     }
     this.removeBlockFromBoard();
     this.fallingBlockTopLeftPosition.y += 1;
     this.fillBlockToBoard();
   }
+
+  checkForLineClear() {
+    const fullRows = [];
+
+    for (let y = 0; y < this.height; y++) {
+      if (this.board[y].every((cell) => cell !== ".")) {
+        fullRows.push(y);
+      }
+    }
+
+    if (fullRows.length > 0) {
+      this.clearRows(fullRows);
+    }
+  }
+
 
   toString() {
     return this.board.map((r) => r.join("")).join("\n") + "\n";
