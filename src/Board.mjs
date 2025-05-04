@@ -7,12 +7,26 @@ export class Board {
   isFalling;
   fallingBlock;
   fallingBlockTopLeftPosition;
+  observers;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
     this.isFalling = false;
     this.board = Array.from({ length: height }, () => Array(width).fill("."));
+    this.observers = [];
+  }
+
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
+
+  removeObserver(observer) {
+    this.observers = this.observers.filter((obs) => obs !== observer);
+  }
+
+  notifyObservers(event) {
+    this.observers.forEach((observer) => observer.update(event));
   }
 
   isBeyondBoard(points) {
