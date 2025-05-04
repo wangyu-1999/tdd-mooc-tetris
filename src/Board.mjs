@@ -249,4 +249,8 @@ export class Board {
   toString() {
     return this.board.map((r) => r.join("")).join("\n") + "\n";
   }
+
+  cellAt(row, column) {
+    return this.board[row][column];
+  }
 }

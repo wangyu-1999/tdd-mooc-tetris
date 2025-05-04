@@ -1,4 +1,5 @@
 export class Scoring {
+  level = 1;
   constructor() {
     this.score = 0;
   }
